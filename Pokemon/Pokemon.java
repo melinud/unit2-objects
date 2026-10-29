@@ -30,20 +30,46 @@ public class Pokemon extends Actor
         return type;
     }
     public void attack(String attackName, User enemy){
-        
+        int power = getAttackPower(attackName, enemy);
+        if (ap > 0 && !outStatus && enemy.getPokemon() != null){
+            enemy.getPokemon().takeDamage(power);
+            ap--;
+        }
     }
     public void takeDamage(int amount){
         this.hp=this.hp - amount;
+        if (hp <= 0){
+            hp = 0;
+            outStatus = true;
+        }
     }
     public void heal(){
-        
+        hp += 20;
+        outStatus = false;
     }
-    /**
-     * Act - do whatever the Pokemon wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
-    public void act()
-    {
-        // Add your action code here.
+    public void printAttack(){
+        System.out.println(attack.getName());
     }
+    public int getAttackPower(String attackName, User enemy){
+        if (attack.getName().equalsIgnoreCase(attackName)){
+            return attack.getPower();
+        }
+        return 0;
+    }
+    public int getHp(){
+        return hp;
+    }
+    public int getAp(){
+        return ap;
+    }
+    public String getName(){
+        return name;
+    }
+    public boolean isOut(){
+        return outStatus;
+    }
+    public Attack getAttack(){
+        return attack;
+    }
+    
 }

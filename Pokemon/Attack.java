@@ -12,7 +12,7 @@ public class Attack extends Actor
     private int power;
     public Attack(String name){
         this.name=name;
-        
+        power = 10;
     }
     public Attack(String name, int power){
         this.name=name;
